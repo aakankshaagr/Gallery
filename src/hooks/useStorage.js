@@ -4,7 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { serverTimestamp, collection, addDoc } from "firebase/firestore";
 const useStorage = (file) => {
   const [progress, setProgress] = useState(0);
-  //const [setError] = useState(null);
+  const [error, setError] = useState(null);
   const [url, setUrl] = useState(null);
   useEffect(() => {
     //Logic for storing upload
@@ -26,7 +26,9 @@ const useStorage = (file) => {
         setProgress(prog);
         console.log("Upload is " + prog + "% done");
       },
-
+      (error) => {
+        setError(error);
+      },
       async () => {
         // Handle successful uploads on complete
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
@@ -60,6 +62,6 @@ const useStorage = (file) => {
     );
   */
   }, [file]);
-  return { progress, url };
+  return { progress, url, error };
 };
 export default useStorage;
