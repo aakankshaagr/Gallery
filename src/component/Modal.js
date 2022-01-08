@@ -1,17 +1,27 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-const Modal = ({ imageUrl }) => {
+const Modal = ({ setSelectedImg, selectedImg }) => {
+  const handleClick = (e) => {
+    if (e.target.classList.contains("backdrop")) {
+      setSelectedImg(null);
+    }
+  };
+
   return (
-    <div
+    <motion.div
       className="backdrop"
-      onClick={(e) => {
-        if (e.target.classList.contains("backdrop")) {
-          document.querySelector(".backdrop img").style.visibility = "hidden";
-        }
-      }}
+      onClick={handleClick}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
     >
-      <img src={imageUrl} alt="enlarged"></img>
-    </div>
+      <motion.img
+        src={selectedImg}
+        alt="enlarged pic"
+        initial={{ y: "-100vh" }}
+        animate={{ y: 0 }}
+      />
+    </motion.div>
   );
 };
 
