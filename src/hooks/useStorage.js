@@ -24,7 +24,6 @@ const useStorage = (file) => {
         // Get task progress, including the number of bytes uploaded and the total number of bytes to be uploaded
         const prog = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         setProgress(prog);
-        console.log("Upload is " + prog + "% done");
       },
       (error) => {
         setError(error);
@@ -36,11 +35,10 @@ const useStorage = (file) => {
           console.log("File available at", downloadURL);
           setUrl(downloadURL);
           try {
-            const docRef = addDoc(collectionRef, {
+            addDoc(collectionRef, {
               url: downloadURL,
               createdAt: serverTimestamp(),
             });
-            console.log("Document written with ID: ", docRef.id);
           } catch (e) {
             console.error("Error adding document: ", e);
           }

@@ -12,7 +12,6 @@ const useFirestore = (collect) => {
         documents.push({ ...doc.data(), id: doc.id });
       });
       setDocs(documents);
-      console.log("Current images ", documents);
     });
     //cleanup function : invoked when you want to unmount imagegrid
     return () => unsubscribe();
